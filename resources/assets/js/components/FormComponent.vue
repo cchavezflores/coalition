@@ -36,6 +36,13 @@
                         <td>{{ product.dateAdded }}</td>
                         <td>{{ product.totalValue }}</td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ totalValue }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -64,6 +71,9 @@
         computed:{
             orderedProducts(){
                 return _.orderBy(this.products,'dateAdded');
+            },
+            totalValue(){
+                return _.sum(_.map(this.products,'totalValue'));
             }
         },
         methods:{

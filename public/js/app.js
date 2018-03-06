@@ -47081,6 +47081,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47102,6 +47109,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         orderedProducts: function orderedProducts() {
             return _.orderBy(this.products, 'dateAdded');
+        },
+        totalValue: function totalValue() {
+            return _.sum(_.map(this.products, 'totalValue'));
         }
     },
     methods: {
@@ -47243,19 +47253,34 @@ var render = function() {
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.orderedProducts, function(product) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(product.productName))]),
+            [
+              _vm._l(_vm.orderedProducts, function(product) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(product.productName))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.quantityInStock))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.pricePerItem))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.dateAdded))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.totalValue))])
+                ])
+              }),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td"),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(product.quantityInStock))]),
+                _c("td"),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(product.pricePerItem))]),
+                _c("td"),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(product.dateAdded))]),
+                _c("td"),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(product.totalValue))])
+                _c("td", [_vm._v(_vm._s(_vm.totalValue))])
               ])
-            })
+            ],
+            2
           )
         ])
       ])
