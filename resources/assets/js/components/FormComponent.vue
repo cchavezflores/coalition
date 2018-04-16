@@ -59,9 +59,7 @@
               form: {
                   productName: '',
                   quantityInStock: '',
-                  pricePerItem: '',
-                  dateAdded: '',
-                  totalValue: ''
+                  pricePerItem: ''
               }
             }
         },
@@ -70,7 +68,7 @@
         },
         computed:{
             orderedProducts(){
-                return _.orderBy(this.products,'dateAdded');
+                return _.orderBy(this.products,'dateAdded','desc');
             },
             totalValue(){
                 return _.sum(_.map(this.products,'totalValue'));
@@ -84,9 +82,13 @@
                 })
             },
             storeProducts(){
-                this.form.dateAdded = new Date();
-                this.form.totalValue = this.form.quantityInStock * this.form.pricePerItem;
-                this.products.push(this.form);
+                this.products.push({
+                    productName: this.form.productName,
+                    quantityInStock: this.form.quantityInStock,
+                    pricePerItem: this.form.pricePerItem,
+                    dateAdded: new Date(),
+                    totalValue: this.form.quantityInStock * this.form.pricePerItem
+                });
                 axios.post('/products',this.products)
                     .then(response => {
                         this.form.productName = '';
@@ -94,8 +96,7 @@
                         this.form.pricePerItem = '';
                         this.form.dateAdded = '';
                         this.form.totalValue = '';
-                        this.getProducts();
-                })
+                    })
             }
         }
     }

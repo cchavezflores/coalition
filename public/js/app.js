@@ -47096,9 +47096,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 productName: '',
                 quantityInStock: '',
-                pricePerItem: '',
-                dateAdded: '',
-                totalValue: ''
+                pricePerItem: ''
             }
         };
     },
@@ -47108,7 +47106,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         orderedProducts: function orderedProducts() {
-            return _.orderBy(this.products, 'dateAdded');
+            return _.orderBy(this.products, 'dateAdded', 'desc');
         },
         totalValue: function totalValue() {
             return _.sum(_.map(this.products, 'totalValue'));
@@ -47125,16 +47123,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         storeProducts: function storeProducts() {
             var _this2 = this;
 
-            this.form.dateAdded = new Date();
-            this.form.totalValue = this.form.quantityInStock * this.form.pricePerItem;
-            this.products.push(this.form);
+            this.products.push({
+                productName: this.form.productName,
+                quantityInStock: this.form.quantityInStock,
+                pricePerItem: this.form.pricePerItem,
+                dateAdded: new Date(),
+                totalValue: this.form.quantityInStock * this.form.pricePerItem
+            });
             axios.post('/products', this.products).then(function (response) {
                 _this2.form.productName = '';
                 _this2.form.quantityInStock = '';
                 _this2.form.pricePerItem = '';
                 _this2.form.dateAdded = '';
                 _this2.form.totalValue = '';
-                _this2.getProducts();
             });
         }
     }
